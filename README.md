@@ -15,6 +15,7 @@ For more infomation about using and customizing Esri's Storytelling Apps follow 
 
 ## Help content
 
+ * [BlackSky/AlertWhere notes](#blacksky--alertwhere)
  * [Introduction](#introduction)
  * [Instructions](#instructions)
  * [Feedback / support](#feedback--support)
@@ -25,6 +26,18 @@ For more infomation about using and customizing Esri's Storytelling Apps follow 
  * [Issues](#issues)
  * [Contributing](#contributing)
  * [Licensing](#licensing)
+
+## BlackSky / AlertWhere
+This fork provides hooks for BlackSky to intercept calls to the ArcGIS online mapping tools and instead will provide
+custom data (in the same content and map format).
+
+All related files are in the 'src/blacksky' folder.
+ * _getData.js_ provides the 'middle-man' code for gathering AlertWhere data and formatting it into the expected format
+ for the story content and map creation.
+ * _alertwhere-data.js_ provides the interface for getting and returning AlertWhere data. The initial version only
+ provides hard-coded example data.
+
+Note that we are still using the 'appId' query parameter to identify what to load.
 
 ## Introduction
 A Map Journal application can be created from [ArcGIS Online](http://arcgis.com), from the [Esri Story Maps website](http://storymaps.arcgis.com/) or from a [Portal for ArcGIS](http://www.esri.com/software/arcgis/arcgisserver/extensions/portal-for-arcgis) deployment. The Journal's data are stored in a Web Application Item (this includes the narrative content, reference to the webmap(s), pictures, videos and the settings).
