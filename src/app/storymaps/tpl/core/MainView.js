@@ -1,4 +1,6 @@
-define(["lib-build/css!./MainView",
+define([
+		"blacksky/getData.js",
+		"lib-build/css!./MainView",
 		"../ui/MainStage",
 		"./Config",
 		"./Data",
@@ -32,6 +34,7 @@ define(["lib-build/css!./MainView",
 		"lib-build/css!../ui/Responsive"
 	], 
 	function (
+		blackSky,
 		viewCss,
 		MainStage,
 		Config,
@@ -287,8 +290,12 @@ define(["lib-build/css!./MainView",
 				
 				//var popup = $("body").width() > 768 ? null : new PopupMobile(null, $("<div></div>")[0]);
 				var popup = null;
+
+				// bpoteat: data
+				var appId = CommonHelper.getAppID(_core.isProd());
+				var mapData = blackSky.getMapData(appId);
 				
-				return arcgisUtils.createMap(webmapIdOrJSON, container, {
+				return arcgisUtils.createMap(mapData, container, {
 					mapOptions: {
 						slider: true,
 						autoResize: false,

@@ -1,4 +1,6 @@
-define(["lib-build/css!lib-app/bootstrap/css/bootstrap.min",
+define([
+		"blacksky/getData.js",
+		"lib-build/css!lib-app/bootstrap/css/bootstrap.min",
 		"lib-build/css!storymaps/common/ui/Modal.css",
 		"lib-build/css!./Core",
 		"lib-app/jquery",
@@ -28,6 +30,7 @@ define(["lib-build/css!lib-app/bootstrap/css/bootstrap.min",
 		"lib-app/bootstrap/js/bootstrap.min",
 		"lib-app/history.min"],
 	function(
+		blackSky,
 		bootstrapCss,
 		modalCss,
 		viewCss,
@@ -289,6 +292,24 @@ define(["lib-build/css!lib-app/bootstrap/css/bootstrap.min",
 			var appId = CommonHelper.getAppID(isProd()),
 				webmapId = CommonHelper.getWebmapID(isProd()),
 				supportWebmapPreviewAGOL = !! (app.appCfg ? app.appCfg.supportWebmapPreviewAGOL : true);
+
+			// -------------------------------------------------------------------------------------------------------------
+			// bpoteat - intercepted here to inject data from AlertWhere sources instead of
+
+			var response = blackSky.getStoryData(appId);
+			app.data.setWebAppItem(response.item);
+			app.data.getWebAppData().set(response.itemData);
+			app.userCanEdit = false;
+
+			_mainView.webAppConfigLoaded();
+
+			initializeUI();
+			_mainView.loadWebmapFromData();
+			return;
+
+			// bpoteat - bypassing everything else here.
+			// -------------------------------------------------------------------------------------------------------------
+
 			
 			// Load using a Web Mapping Application item
 			if (appId) {
