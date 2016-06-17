@@ -1,0 +1,78 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "consul-conf",
+      "host": {
+        "sourcePath": "/etc/consul"
+      }
+    },
+    {
+      "name": "docker-sock",
+      "host": {
+        "sourcePath": "/var/run/docker.sock"
+      }
+    }
+  ],
+
+  "authentication": {
+      "bucket": "net-openwhere-docker-auth-<REGION>",
+      "key": "dockerhub.json"
+  },
+
+  "containerDefinitions": [
+    {
+      "name": "storymap-ui-container",
+      "image": "openwhere/storymap-ui:<TAG>",
+      "essential": true,
+      "memory": 512,
+      "dnsServers" : [ "172.17.0.1" ],
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 3000
+        }
+      ]
+    },
+    {
+      "name": "consul-container",
+      "image": "openwhere/consul:norecursor",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        { "hostPort": 53, "containerPort": 53, "protocol": "udp" },
+        { "hostPort": 8300, "containerPort": 8300 },
+        { "hostPort": 8301, "containerPort": 8301 },
+        { "hostPort": 8301, "containerPort": 8301, "protocol": "udp" },
+        { "hostPort": 8302, "containerPort": 8302 },
+        { "hostPort": 8302, "containerPort": 8302, "protocol": "udp" },
+        { "hostPort": 8400, "containerPort": 8400 },
+        { "hostPort": 8500, "containerPort": 8500 }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "consul-conf",
+          "containerPath": "/config"
+        }
+      ]
+    },
+    {
+      "name": "logspout",
+      "image": "rtoma/logspout-redis-logstash:latest",
+      "entryPoint": ["/bin/sh"],
+      "command":[
+        "-c",
+        "/bin/logspout redis://logstash-elb?docker_host=$(/usr/bin/wget -q -O - http://169.254.169.254/latest/meta-data/instance-id)"
+      ],
+      "essential": false,
+      "memory": 64,
+      "mountPoints": [
+        {
+          "sourceVolume": "docker-sock",
+          "containerPath": "/var/run/docker.sock",
+          "readOnly": true
+        }
+      ]
+    }
+  ]
+}
