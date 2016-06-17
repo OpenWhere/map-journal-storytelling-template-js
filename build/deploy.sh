@@ -3,7 +3,7 @@
 if test "$#" -ne 4; then
   echo "Usage: $0 <application name> <version label> <beanstalk env> <region>"
   echo
-  echo "e.g.  $0 storymap-ui 1.3.1_600 storymap-ui-dev us-east-1"
+  echo "e.g.  $0 alertwhere-ui 1.3.1_600 alertwhere-ui-dev us-east-1"
   exit 1
 fi
 
