@@ -13,7 +13,7 @@ fi
 
 REGISTRY=${DOCKER_REGISTRY:-openwhere}
 
-grunt build
+grunt clean:deploy
 npm prune --production
 
 docker build -t storymap-ui .
