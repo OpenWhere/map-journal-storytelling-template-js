@@ -13,11 +13,16 @@ define(["blacksky/alertwhere-data.js"], function (awData) {
     if (!position) {
       return null;
     }
-    var coords = position.split(',');
+    var coords;
+    if (Array.isArray(position))
+      coords = position;
+    else
+      coords = position.split(',');
+
 
     // this is a hack to just get us to a reasonable zoom level around the point of the position
-    var min = degrees2meters(parseFloat(coords[1]) - 1, parseFloat(coords[0]) - 1);
-    var max = degrees2meters(parseFloat(coords[1]) + 1, parseFloat(coords[0]) + 1);
+    var min = degrees2meters(parseFloat(coords[0]) - 1, parseFloat(coords[1]) - 1);
+    var max = degrees2meters(parseFloat(coords[0]) + 1, parseFloat(coords[1]) + 1);
 
     return {
       "xmin": min[0],
@@ -84,8 +89,12 @@ define(["blacksky/alertwhere-data.js"], function (awData) {
     var data = awData.data(id);
     var layers = [];
     $.each(data, function (index, section) {
-      var coords = section.location.split(',');
-      var position = degrees2meters(parseFloat(coords[1]), parseFloat(coords[0]));
+      var coords;
+      if (Array.isArray(section.location))
+        coords = section.location;
+      else
+        coords = section.location.split(',');
+      var position = degrees2meters(parseFloat(coords[0]), parseFloat(coords[1]));
       var layer = {
         "layerDefinition": {
           "type": "Feature Layer",

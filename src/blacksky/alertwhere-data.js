@@ -28,7 +28,17 @@ define([], function () {
 
   function getData(id) {
     console.log(`retrieve data for id, ${id}`);
-    return data;
+    var new_data;
+    $.ajax({
+      dataType: "json",
+      url: "http://localhost:5000/storymap/" + id,
+      data: data,
+      async: false,
+      success: function(foo) {
+        new_data = foo;
+      }
+    });
+    return new_data.events;
   }
 
   return {
