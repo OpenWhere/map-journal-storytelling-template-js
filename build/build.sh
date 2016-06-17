@@ -13,8 +13,7 @@ fi
 
 REGISTRY=${DOCKER_REGISTRY:-openwhere}
 
-grunt clean:deploy
-npm prune --production
+npm install
 
 docker build -t storymap-ui .
 docker tag -f storymap-ui $REGISTRY/storymap-ui:${TAG}
