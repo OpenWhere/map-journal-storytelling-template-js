@@ -8,7 +8,7 @@ dependencies:
     - npm install
 test:
   override:
-    - echo "test "
+    - echo "test"
 
 # Environment variables for Docker are defined per-project in CircleCI
 # CircleCI also has some built-in environment variables; see:
@@ -17,7 +17,7 @@ deployment:
   dev:
     branch: develop
     commands:
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWORD
       - ./build/build.sh dev_${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1}
       - ./build/create_beanstalk_app_version.sh storymap-ui dev_${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1} storymap-ui-dev us-east-1
       - ./build/deploy.sh storymap-ui dev_${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1} storymap-ui-dev us-east-1
