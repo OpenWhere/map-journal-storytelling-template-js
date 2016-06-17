@@ -1,0 +1,32 @@
+machine:
+  services:
+    - docker
+  node:
+    version: 4.2.2
+dependencies:
+  override:
+    - npm install
+    - bower install
+
+# Environment variables for Docker are defined per-project in CircleCI
+# CircleCI also has some built-in environment variables; see:
+# https://circleci.com/docs/environment-variables
+deployment:
+  dev:
+    branch: develop
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - ./build/build.sh dev_${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1}
+      - ./build/create_beanstalk_app_version.sh storymap-ui dev_${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1} storymap-ui-dev us-east-1
+      - ./build/deploy.sh storymap-ui dev_${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1} storymap-ui-dev us-east-1
+  sit:
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - APP_VERSION=$(cat package.json | grep '"version"' | awk '{gsub(/"|,/, "", $2); print $2}')_${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1} && ./build/build.sh $APP_VERSION
+      # Build AND Deploy to SIT
+      - APP_VERSION=$(cat package.json | grep '"version"' | awk '{gsub(/"|,/, "", $2); print $2}')_${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1} && ./build/create_beanstalk_app_version.sh storymap-ui $APP_VERSION storymap-ui-sit us-west-2 && ./build/deploy.sh storymap-ui $APP_VERSION storymap-ui-sit us-west-2
+      # Create version BUT NOT DEPLOY to EXPO
+      - APP_VERSION=$(cat package.json | grep '"version"' | awk '{gsub(/"|,/, "", $2); print $2}')_${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1} && ./build/create_beanstalk_app_version.sh storymap-ui $APP_VERSION storymap-ui-expo us-east-1
+      # Create version BUT NOT DEPLOY to PGP
+      - APP_VERSION=$(cat package.json | grep '"version"' | awk '{gsub(/"|,/, "", $2); print $2}')_${CIRCLE_BUILD_NUM}_${CIRCLE_SHA1} && ./build/create_beanstalk_app_version.sh storymap-ui $APP_VERSION storymap-ui-pgp us-east-1
