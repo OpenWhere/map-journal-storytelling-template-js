@@ -8,7 +8,7 @@ dependencies:
     - npm install
 test:
   override:
-    - echo "test "
+    - echo "test"
 
 # Environment variables for Docker are defined per-project in CircleCI
 # CircleCI also has some built-in environment variables; see:
