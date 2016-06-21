@@ -4,6 +4,10 @@ FROM node:4.2.2
 RUN mkdir -p /opt/nodejs/public
 WORKDIR /opt/nodejs
 
+# Install Bower & Grunt
+RUN npm install -g bower grunt-cli && \
+    echo '{ "allow_root": true }' > /root/.bowerrc
+    
 ADD ["./Gruntfile.js", "/opt/nodejs/"]
 ADD ["./package.json", "/opt/nodejs/"]
 ADD ["./node_modules", "/opt/nodejs/node_modules/"]
