@@ -89,7 +89,9 @@ define(["dojo/cookie",
 			getAppID: function(isProd)
 			{
 				var urlParams = this.getUrlParams();
+				return urlParams.appid;
 				
+				/*  TODO: delete this? We're not using arcgis --apierce 2016june23
 				if( app.indexCfg && app.indexCfg.appid )
 					return app.indexCfg.appid;
 				
@@ -99,6 +101,7 @@ define(["dojo/cookie",
 				// Only authorize URL params outside of arcgis.com if a webmap/app owner is specified
 				if( app.indexCfg.authorizedOwners && app.indexCfg.authorizedOwners.length > 0 && app.indexCfg.authorizedOwners[0] )
 					return urlParams.appid;
+			  */
 			},
 			getGraphicsLayerByName: function(map, name)
 			{
