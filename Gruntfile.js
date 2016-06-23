@@ -78,9 +78,10 @@
 					inlineText: true,
 					separateCSS: true,
 					siteRoot: '../../src/app/storymaps/',
-					preserveLicenseComments: false
+					preserveLicenseComments: false,
 					// ckeditor doesn't build with uglify2
 					//optimize: 'uglify2'
+					optimize: 'none'
 				},
 				builder: {
 					options: {
@@ -398,7 +399,7 @@
 		 */
 		grunt.registerTask('default', [
 			// Comment out to disable code linting
-			'jshint:common',
+			//'jshint:common',
 			'jshint:tpl',
 			'jshint:nls-en',
 			'jshint:nls-all',

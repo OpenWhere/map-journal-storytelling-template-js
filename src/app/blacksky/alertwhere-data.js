@@ -4,7 +4,7 @@
 define([], function () {
 
   function getData(id) {
-    console.log(`retrieve data for id, ${id}`);
+    console.log('retrieve data for id ' + id);
     var new_data;
     $.ajax({
       dataType: "json",

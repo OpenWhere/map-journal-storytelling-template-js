@@ -132,7 +132,7 @@ define(["blacksky/alertwhere-data.js"], function (awData) {
         "popupInfo": {
           // The title and description will be both be inserted as html into the popup for the point marker.
           "title": section.title,
-          "description": `<h2>${section.locationName ? section.locationName : ''}</h2><a href="${section.url}" target="_blank">Click for article</a>`
+          "description": `<h2>${section.locationName ? section.locationName : ""}</h2><a href="${section.url}" target="_blank">Click for article</a>`
         },
 
         "featureSet": {
