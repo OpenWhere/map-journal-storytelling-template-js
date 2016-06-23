@@ -39,8 +39,8 @@ define(["blacksky/alertwhere-data.js"], function (awData) {
     $.each(data, function (index, section) {
 
       var sectionData = {
-        "title": '<p><strong><span style=\"font-size:36px\">${section.title}</span></strong></p>\n',
-        "content": '<p>${section.description}</p>\n',
+        "title": `<p><strong><span style=\"font-size:36px\">${section.title}</span></strong></p>\n`,
+        "content": `<p>${section.description}</p>\n`,
         "contentActions": [],
         // not sure what these dates are used for (they don't show anywhere in the content) but it errors
         // without them, so...
@@ -132,7 +132,7 @@ define(["blacksky/alertwhere-data.js"], function (awData) {
         "popupInfo": {
           // The title and description will be both be inserted as html into the popup for the point marker.
           "title": section.title,
-          "description": '<h2>${section.locationName ? section.locationName : ""}</h2><a href="${section.url}" target="_blank">Click for article</a>'
+          "description": `<h2>${section.locationName ? section.locationName : ""}</h2><a href="${section.url}" target="_blank">Click for article</a>`
         },
 
         "featureSet": {
