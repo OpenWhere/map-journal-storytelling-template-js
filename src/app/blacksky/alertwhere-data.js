@@ -8,7 +8,7 @@ define([], function () {
     var new_data;
     $.ajax({
       dataType: "json",
-      url: "http://api-proxy.service.consul:80/saved-search/storymap/" + id,
+      url: '/api/v1/storymaps/' + id,
       async: false,
       success: function(foo) {
         new_data = foo;
