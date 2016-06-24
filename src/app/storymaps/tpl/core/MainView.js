@@ -1,5 +1,5 @@
 define([
-		"app/blacksky/getData.js",
+		"../../common/blacksky/getData",
 		"lib-build/css!./MainView",
 		"../ui/MainStage",
 		"./Config",
