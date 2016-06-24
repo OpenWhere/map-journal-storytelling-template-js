@@ -1,4 +1,4 @@
-define(["blacksky/alertwhere-data.js"], function (awData) {
+define(["app/blacksky/alertwhere-data.js"], function (awData) {
 
   // bpoteat: borrowed this from here:
   // https://gist.github.com/onderaltintas/6649521
