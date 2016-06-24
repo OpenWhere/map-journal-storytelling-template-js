@@ -6,14 +6,25 @@ define([], function () {
   function getData(id) {
     console.log('retrieve data for id ' + id);
     var new_data;
-    $.ajax({
-      dataType: "json",
-      url: '/api/v1/storymaps/' + id,
-      async: false,
-      success: function(foo) {
-        new_data = foo;
-      }
-    });
+    if (app.isProduction) {
+      $.ajax({
+        dataType: "json",
+        url: '/api/v1/storymaps/' + id,
+        async: false,
+        success: function (foo) {
+          new_data = foo;
+        }
+      });
+    } else {
+      $.ajax({
+        dataType: "json",
+        url: 'http://localhost:3000/api/v1/storymaps/' + id,
+        async: false,
+        success: function (foo) {
+          new_data = foo;
+        }
+      });
+    }
     return new_data.events;
   }
 
