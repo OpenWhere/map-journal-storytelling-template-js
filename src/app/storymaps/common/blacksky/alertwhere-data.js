@@ -6,25 +6,19 @@ define([], function () {
   function getData(id) {
     console.log('retrieve data for id ' + id);
     var new_data;
-    if (app.isProduction) {
-      $.ajax({
-        dataType: "json",
-        url: '/api/v1/storymaps/' + id,
-        async: false,
-        success: function (foo) {
-          new_data = foo;
+    $.ajax({
+      dataType: "json",
+      url: '/api/v1/storymaps/' + id,
+      async: false,
+      success: function (response) {
+        new_data = response;
+      },
+      statusCode: {
+        401: function(response) {
+          window.location.href = '/#/signin';
         }
-      });
-    } else {
-      $.ajax({
-        dataType: "json",
-        url: 'http://localhost:3000/api/v1/storymaps/' + id,
-        async: false,
-        success: function (foo) {
-          new_data = foo;
-        }
-      });
-    }
+      }
+    });
     return new_data.events;
   }
 
