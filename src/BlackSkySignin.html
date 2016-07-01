@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AlertWhere Sign-in Redirect</title>
+
+  <script type='text/javascript'>
+    function reloadStory() {
+      const url = 'index.html' + window.location.search;
+      console.log('reloading/routing to storymap', url);
+      window.location.href = url;
+    }
+  </script>
+</head>
+<body>
+  <h3>Sign-in Required</h3>
+  <p>
+    This action requires signing into the AlertWhere application.
+  </p>
+  <p>
+    <ol>
+      <li>
+        <a href="/#/signin" target="_blank">Click here</a> to open the AlertWhere web application.
+      </li>
+      <li>
+        After successfully signing in,
+        <a href="#" title="Reload the StoryMap" onclick="reloadStory();">Click here</a> to reload thisStoryMap.
+      </li>
+    </ol>
+  </p>
+</body>
+</html>
