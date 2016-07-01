@@ -35,12 +35,18 @@ define(["./alertwhere-data"], function (awData) {
 
   function getContent(id) {
     var data = awData.data(id);
+    console.log('got data:', data);
     var sections = [];
-    $.each(data, function (index, section) {
+    $.each(data.events, function (index, section) {
+
+      var content = `<p>${section.description}</p>\n`;
+      if (section.image_url) {
+        content = `<img src="${section.image_url}">`;
+      }
 
       var sectionData = {
         "title": `<p><strong><span style=\"font-size:36px\">${section.title}</span></strong></p>\n`,
-        "content": `<p>${section.description}</p>\n`,
+        "content": content,
         "contentActions": [],
         // not sure what these dates are used for (they don't show anywhere in the content) but it errors
         // without them, so...
@@ -50,7 +56,7 @@ define(["./alertwhere-data"], function (awData) {
         "media": {
           "type": "webmap",
           "webmap": {
-            "id": "180c4bd65bde4e9dbeed537e82bbaba6",
+            "id": data.uuid,
             "extent": getExtent(section.location)
           }
         }
@@ -60,7 +66,7 @@ define(["./alertwhere-data"], function (awData) {
 
     var storyData = {
       "item": {
-        "title": "OW/BlackSky Story Map",
+        "title": "AlertWhere StoryMap: " + data.title,
         "extent": [],
       },
       "itemData": {
@@ -69,15 +75,20 @@ define(["./alertwhere-data"], function (awData) {
             "layout": {
               // This can be either "side" or "float" for how the output should be arranged.
               "id": "side"
+            },
+            "header": {
+              "linkText": data.title,
+              "linkURL": "http://pgp.alertwhere.com",
+              "logoURL": "http://www.blacksky.com/wp-content/uploads/2016/01/BlackSkyLogo-reverseorange_iconrgb.jpg",
+              "logoTarget": "http://www.blacksky.com/",
+              "social": {"facebook": false, "twitter": false, "bitly": false}
             }
           },
           "story": {
             "storage": "WEBAPP",
             // This is where the real content is defined. Each object in the sections array defins
             "sections": sections
-          },
-          // This doesn't seem to be important but it seems like it could be used for something
-          "title": "OW Test 2 - TITLE!!\n"
+          }
         }
       }
     };
@@ -88,7 +99,7 @@ define(["./alertwhere-data"], function (awData) {
   function getMap(id) {
     var data = awData.data(id);
     var layers = [];
-    $.each(data, function (index, section) {
+    $.each(data.events, function (index, section) {
       var coords;
       if (Array.isArray(section.location))
         coords = section.location;
@@ -164,8 +175,8 @@ define(["./alertwhere-data"], function (awData) {
     var mapData = {
       "item": {
         // doesn't matter what value this is but it has to be a 32 character guid.
-        "id": "180c4bd65bde4e9dbeed537e82bbaba6",
-        "title": "OW Test 2 - Map",
+        "id": data.uuid,
+        "title": data.title + " map",
 
         // the default zoom extent for the map.
         "extent": null,

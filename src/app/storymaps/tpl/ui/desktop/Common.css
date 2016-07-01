@@ -22,6 +22,7 @@
 .sectionPanel .header {
 	position: relative;
 	height: 55px;
+	background-color: black;
 }
 
 .sectionPanel .header:not(.titleanchored) {
@@ -305,6 +306,7 @@ body[data-theme-major=black] .builder-content-panel .builder-content-panel-group
 	font-weight: bold;
 	padding-right: 6px;
 	height: 24px;
+	visibility: hidden;
 }
 
 .switchBuilder .glyphicon {
