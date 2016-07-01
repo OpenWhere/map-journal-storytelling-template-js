@@ -39,9 +39,14 @@ define(["./alertwhere-data"], function (awData) {
     var sections = [];
     $.each(data.events, function (index, section) {
 
+      var content = `<p>${section.description}</p>\n`;
+      if (section.image_url) {
+        content = `<img src="${section.image_url}">`;
+      }
+
       var sectionData = {
         "title": `<p><strong><span style=\"font-size:36px\">${section.title}</span></strong></p>\n`,
-        "content": `<p>${section.description}</p>\n`,
+        "content": content,
         "contentActions": [],
         // not sure what these dates are used for (they don't show anywhere in the content) but it errors
         // without them, so...
