@@ -19,7 +19,7 @@ define([], function () {
         }
       }
     });
-    return newData.events;
+    return newData;
   }
 
   return {
