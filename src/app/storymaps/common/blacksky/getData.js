@@ -37,9 +37,30 @@ define(["./alertwhere-data"], function (awData) {
     var data = awData.data(id);
     console.log('got data:', data);
     var sections = [];
+
+    // add the title/description from the data as the first story.
+    var firstSectionData = {
+      "title": `<p><strong><span style=\"font-size:36px\">${data.title}</span></strong></p>\n`,
+      "content": data.description ? `<p>${data.description}</p>` : '<p></p>',
+      "contentActions": [],
+      // not sure what these dates are used for (they don't show anywhere in the content) but it errors
+      // without them, so...
+      "creaDate": 1465324793581,
+      "pubDate": 1465324793581,
+      "status": "PUBLISHED",
+      "media": {
+        "type": "webmap",
+        "webmap": {
+          "id": data.uuid,
+          "extent": data.events.length > 0 ? getExtent(data.events[0].location) : ''
+        }
+      }
+    };
+    sections.push(firstSectionData);
+
     $.each(data.events, function (index, section) {
 
-      var content = `<p>${section.description}</p>\n`;
+      var content = section.description && section.description !== 'null' ? `<p>${section.description}</p>\n` : '<p></p>';
       if (section.image_url) {
         content = `<img src="${section.image_url}">`;
       }
@@ -106,6 +127,13 @@ define(["./alertwhere-data"], function (awData) {
       else
         coords = section.location.split(',');
       var position = degrees2meters(parseFloat(coords[0]), parseFloat(coords[1]));
+      var popupDescription = `<h2>${section.locationName ? section.locationName : ''}</h2>`;
+      if (section.url) {
+        popupDescription += `<a href="${section.url}" target="_blank">Click for article</a>`;
+      }
+      if (section.image_url) {
+        popupDescription += `<img src="${section.image_url}">`;
+      }
       var layer = {
         "layerDefinition": {
           "type": "Feature Layer",
@@ -143,7 +171,7 @@ define(["./alertwhere-data"], function (awData) {
         "popupInfo": {
           // The title and description will be both be inserted as html into the popup for the point marker.
           "title": section.title,
-          "description": `<h2>${section.locationName ? section.locationName : ""}</h2><a href="${section.url}" target="_blank">Click for article</a>`
+          "description": popupDescription
         },
 
         "featureSet": {
