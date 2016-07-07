@@ -3460,7 +3460,7 @@
     margin-top: 2px;
     margin-right: 4px;
     cursor: pointer;
-    background: url("../_resources/icons/ajax-loader.gif") no-repeat;
+    background: url("ajax-loader.gif") no-repeat;
     width: 16px;
     height: 16px;
     background-position: 0px 0px;
@@ -3492,7 +3492,7 @@
     position: absolute;
     top: 2px;
     cursor: pointer;
-    background: url("../_resources/icons/popup.png") no-repeat;
+    background: url("popup.png") no-repeat;
 }
 
 .esriPopup .titleButton.prev {
