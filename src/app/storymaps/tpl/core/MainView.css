@@ -62,3 +62,12 @@ body.layout-float-left:not(.mobile-view) .esriControlsBR .logo-med {
 	float: left;
 	margin-top: -14px;
 }
+
+/*
+http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r30000029v000000
+ We are not using ESRI basemap so should be good without having an ESRI logo. However, if that changes, we will
+ need to reenable it.
+*/
+.map .logo-med {
+	display: none;
+}
