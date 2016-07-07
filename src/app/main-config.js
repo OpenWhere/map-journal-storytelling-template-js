@@ -82,8 +82,10 @@ defineDojoConfig();
 app.isInBuilder = getUrlVar('edit') || getUrlVar('fromScratch') || getUrlVar('fromscratch');
 app.indexCfg = configOptions;
 
-loadCSS(app.pathJSAPI + "esri/css/esri.css", true);
-loadCSS(app.pathJSAPI + "dijit/themes/claro/claro.css", true);	
+// loadCSS(app.pathJSAPI + "esri/css/esri.css", true);
+// loadCSS(app.pathJSAPI + "dijit/themes/claro/claro.css", true);
+loadCSS("app/storymaps/common/blacksky/blacksky.css");
+
 
 if( app.isProduction ) {
 	if ( app.isInBuilder )
@@ -92,7 +94,8 @@ if( app.isProduction ) {
 		loadCSS("app/viewer-min.css");
 }
 
-loadJS(app.pathJSAPI + 'init.js', true);
+// loadJS(app.pathJSAPI + 'init.js', true);
+loadJS('app/init.js');
 loadJS('app/config.js');
 
 CKEDITOR_BASEPATH = app.isProduction ? 'resources/lib/ckeditor/' : 'lib-app/ckeditor/';

@@ -151,7 +151,8 @@ define(["./alertwhere-data"], function (awData) {
                     "contentType": "image/png",
                     "type": "esriPMS",
                     // I'm guessing this is where we would stick our own icon.
-                    "url": "http://static.arcgis.com/images/Symbols/Basic/GreenStickpin.png"
+                    // "url": "http://static.arcgis.com/images/Symbols/Basic/GreenStickpin.png"
+                    "url": "resources/tpl/viewer/icons/GreenStickpin.png"
                   },
                   "value": "0",
                   "label": "Stickpin"

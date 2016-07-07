@@ -62,3 +62,7 @@ body.layout-float-left:not(.mobile-view) .esriControlsBR .logo-med {
 	float: left;
 	margin-top: -14px;
 }
+
+.map .logo-med {
+	display: none;
+}
