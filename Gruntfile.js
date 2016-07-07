@@ -173,6 +173,11 @@
 						cwd: 'src/app/storymaps/common/_resources/',
 						src:['**'],
 						dest: 'deploy/resources/common/'
+					}, {
+						expand: true,
+						cwd: 'src/app/storymaps/common/blacksky/',
+						src:['*.css', '*.png', '*.gif'],
+						dest: 'deploy/app/storymaps/common/blacksky/'
 					}]
 				},
 				config: {
@@ -187,7 +192,7 @@
 					files: [{
 						expand: true,
 						cwd: 'src',
-						src:['app/main-app.js', 'app/main-config.js'],
+						src:['app/main-app.js', 'app/main-config.js', 'app/init.js'],
 						dest: 'deploy/'
 					}]
 				},
