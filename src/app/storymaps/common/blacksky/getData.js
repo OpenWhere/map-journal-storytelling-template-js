@@ -33,10 +33,6 @@ define(["./alertwhere-data"], function (awData) {
     };
   }
 
-  function cleanupTitle(title) {
-    return title ? title.replace(/&gt;/g, '[greater than]') : '';
-  }
-
   function getContent(id) {
     var data = awData.data(id);
     console.log('got data:', data);
@@ -44,7 +40,7 @@ define(["./alertwhere-data"], function (awData) {
 
     // add the title/description from the data as the first story.
     var firstSectionData = {
-      "title": `<p><strong><span style=\"font-size:36px\">${cleanupTitle(data.title)}</span></strong></p>\n`,
+      "title": `<p><strong><span style=\"font-size:36px\">${data.title}</span></strong></p>\n`,
       "content": data.description ? `<p>${data.description}</p>` : '<p></p>',
       "contentActions": [],
       // not sure what these dates are used for (they don't show anywhere in the content) but it errors
@@ -70,7 +66,7 @@ define(["./alertwhere-data"], function (awData) {
       }
 
       var sectionData = {
-        "title": `<p><strong><span style=\"font-size:36px\">${cleanupTitle(section.title)}</span></strong></p>\n`,
+        "title": `<p><strong><span style=\"font-size:36px\">${section.title}</span></strong></p>\n`,
         "content": content,
         "contentActions": [],
         // not sure what these dates are used for (they don't show anywhere in the content) but it errors
