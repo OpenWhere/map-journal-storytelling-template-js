@@ -6,7 +6,7 @@ define(["./alertwhere-data"], function (awData) {
     var x = lon * 20037508.34 / 180;
     var y = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
     y = y * 20037508.34 / 180;
-    return [x, y]
+    return [x, y];
   };
 
   function getExtent(position) {
@@ -34,7 +34,10 @@ define(["./alertwhere-data"], function (awData) {
   }
 
   function cleanupTitle(title) {
-    return title ? title.replace(/&gt;/g, '[greater than]') : '';
+    if (!title) {
+      return '';
+    }
+    return title.replace(/&quot;|"/g, '\'');
   }
 
   function getContent(id) {
