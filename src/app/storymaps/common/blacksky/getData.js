@@ -40,6 +40,17 @@ define(["./alertwhere-data"], function (awData) {
     return title.replace(/&quot;|"/g, '\'');
   }
 
+  function getCoordinates(event) {
+    let coords = event.meta.centroid;
+    if (!coords) {
+      if (Array.isArray(event.location))
+        coords = event.location;
+      else
+        coords = event.location.split(',');
+    }
+    return coords;
+  }
+
   function getContent(id) {
     var data = awData.data(id);
     console.log('got data:', data);
@@ -59,7 +70,7 @@ define(["./alertwhere-data"], function (awData) {
         "type": "webmap",
         "webmap": {
           "id": data.uuid,
-          "extent": data.events.length > 0 ? getExtent(data.events[0].location) : ''
+          "extent": data.events.length > 0 ? getExtent(getCoordinates(data.events[0])) : ''
         }
       }
     };
@@ -85,7 +96,7 @@ define(["./alertwhere-data"], function (awData) {
           "type": "webmap",
           "webmap": {
             "id": data.uuid,
-            "extent": getExtent(section.location)
+            "extent": getExtent(getCoordinates(section))
           }
         }
       };
@@ -124,17 +135,21 @@ define(["./alertwhere-data"], function (awData) {
     return storyData;
   }
 
+  function getLocationName(event) {
+    if (event.locationName) {
+      return event.locationName;
+    }
+    const pos = getCoordinates(event);
+    return `[${pos[0]}, ${pos[1]}]`;
+  }
+
   function getMap(id) {
     var data = awData.data(id);
     var layers = [];
     $.each(data.events, function (index, section) {
-      var coords;
-      if (Array.isArray(section.location))
-        coords = section.location;
-      else
-        coords = section.location.split(',');
+      var coords = getCoordinates(section);
       var position = degrees2meters(parseFloat(coords[0]), parseFloat(coords[1]));
-      var popupDescription = `<h2>${section.locationName ? section.locationName : ''}</h2>`;
+      var popupDescription = `<h2>${getLocationName(section)}</h2>`;
       if (section.url) {
         popupDescription += `<a href="${section.url}" target="_blank">Click for article</a>`;
       }
