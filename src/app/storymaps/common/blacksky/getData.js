@@ -118,7 +118,7 @@ define(["./alertwhere-data"], function (awData) {
             "header": {
               "linkText": data.title,
               "linkURL": "http://pgp.alertwhere.com",
-              "logoURL": "http://www.blacksky.com/wp-content/uploads/2016/01/BlackSkyLogo-reverseorange_iconrgb.jpg",
+              "logoURL": "/storymaps/resources/tpl/viewer/icons/bsg-logo.png",
               "logoTarget": "http://www.blacksky.com/",
               "social": {"facebook": false, "twitter": false, "bitly": false}
             }
